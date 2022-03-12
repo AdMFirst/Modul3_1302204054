@@ -17,7 +17,64 @@ public class KodeBuah
     }
 }
 
-public class 
+public class PosisiKarakterGame
+{
+    public statePosisi positionRightNow = statePosisi.Berdiri;
+    public enum statePosisi
+    {
+        Jongkok, Berdiri, Tengkurap, Terbang
+    }
+
+    public enum triggerPosisi
+    {
+        TombolS, TombolW, TombolX
+    }
+    public class actionPosisi
+    {
+        public statePosisi prevPosition;
+        public statePosisi nextPosition;
+        public triggerPosisi trigger;
+
+        public actionPosisi(statePosisi a,statePosisi b,triggerPosisi c)
+        {
+            prevPosition = a;
+            nextPosition = b;
+            trigger = c;
+        }
+    }
+
+    public actionPosisi[] allPossibleAction = {
+        new actionPosisi(statePosisi.Jongkok,statePosisi.Berdiri,triggerPosisi.TombolW),
+        new actionPosisi(statePosisi.Jongkok,statePosisi.Tengkurap,triggerPosisi.TombolS),
+        new actionPosisi(statePosisi.Berdiri,statePosisi.Jongkok,triggerPosisi.TombolS),
+        new actionPosisi(statePosisi.Berdiri,statePosisi.Terbang,triggerPosisi.TombolW),
+        new actionPosisi(statePosisi.Tengkurap,statePosisi.Jongkok,triggerPosisi.TombolW),
+        new actionPosisi(statePosisi.Terbang,statePosisi.Berdiri,triggerPosisi.TombolS),
+        new actionPosisi(statePosisi.Terbang,statePosisi.Jongkok,triggerPosisi.TombolX)
+    };
+
+    public void triggerIsTriggered(triggerPosisi button)
+    {
+        for(int i = 0; i < allPossibleAction.Length; i++)
+        {
+            if(allPossibleAction[i].trigger == button && positionRightNow == allPossibleAction[i].prevPosition)
+            {
+                positionRightNow = allPossibleAction[i].nextPosition;
+                
+                if(button == triggerPosisi.TombolS)
+                {
+                    Console.WriteLine("tombol arah bawah ditekan");
+                } else if (button == triggerPosisi.TombolW)
+                {
+                    Console.WriteLine("tombol rah atas ditekan");
+                }
+                break;
+
+            }
+        }
+    }
+
+}
 
 public class main
 {
@@ -25,5 +82,33 @@ public class main
     {
         KodeBuah test = new KodeBuah();
         Console.WriteLine(test.getKodeBuah(KodeBuah.namaBuah.Apel));
+
+        PosisiKarakterGame bapakKamu = new PosisiKarakterGame();
+        Console.WriteLine("Kondisi player saat ini adalah "+ bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat W");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat S");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat S");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat S");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat W");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat W");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat W");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+        Console.WriteLine("Pencat X");
+        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolX);
+        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+
     }
 }
