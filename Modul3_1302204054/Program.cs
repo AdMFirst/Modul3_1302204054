@@ -1,114 +1,123 @@
-﻿
-public class KodeBuah
+﻿namespace soal_1
 {
-
-    public enum namaBuah
+    public class KodeBuah
     {
-        Apel, Aprikot, Alpukat, Pisang, Paprika,
-        Blackberry, Ceri, Kelapa, Jagung, Kurma,
-        Durian, Anggur, Melon, Semangka
-    };
-    private String[] kode = {"A00","B00","C00","D00","E00","F00", "G00", "H00",
+
+        public enum NamaBuah
+        {
+            Apel, Aprikot, Alpukat, Pisang, Paprika,
+            Blackberry, Ceri, Kelapa, Jagung, Kurma,
+            Durian, Anggur, Melon, Semangka
+        };
+        private readonly String[] kode = {"A00","B00","C00","D00","E00","F00", "G00", "H00",
             "I00", "J00", "K00", "L00", "M00", "N00", "O00"};
 
-    public String getKodeBuah(namaBuah buah)
-    {
-        return kode[(int)buah];
+        public String getKodeBuah(NamaBuah buah)
+        {
+            return kode[(int)buah];
+        }
     }
 }
 
-public class PosisiKarakterGame
+namespace soal_2
 {
-    public statePosisi positionRightNow = statePosisi.Berdiri;
-    public enum statePosisi
+    public class PosisiKarakterGame
     {
-        Jongkok, Berdiri, Tengkurap, Terbang
-    }
-
-    public enum triggerPosisi
-    {
-        TombolS, TombolW, TombolX
-    }
-    public class actionPosisi
-    {
-        public statePosisi prevPosition;
-        public statePosisi nextPosition;
-        public triggerPosisi trigger;
-
-        public actionPosisi(statePosisi a,statePosisi b,triggerPosisi c)
+        public StatePosisi positionRightNow = StatePosisi.Berdiri;
+        public enum StatePosisi
         {
-            prevPosition = a;
-            nextPosition = b;
-            trigger = c;
+            Jongkok, Berdiri, Tengkurap, Terbang
         }
-    }
 
-    public actionPosisi[] allPossibleAction = {
-        new actionPosisi(statePosisi.Jongkok,statePosisi.Berdiri,triggerPosisi.TombolW),
-        new actionPosisi(statePosisi.Jongkok,statePosisi.Tengkurap,triggerPosisi.TombolS),
-        new actionPosisi(statePosisi.Berdiri,statePosisi.Jongkok,triggerPosisi.TombolS),
-        new actionPosisi(statePosisi.Berdiri,statePosisi.Terbang,triggerPosisi.TombolW),
-        new actionPosisi(statePosisi.Tengkurap,statePosisi.Jongkok,triggerPosisi.TombolW),
-        new actionPosisi(statePosisi.Terbang,statePosisi.Berdiri,triggerPosisi.TombolS),
-        new actionPosisi(statePosisi.Terbang,statePosisi.Jongkok,triggerPosisi.TombolX)
-    };
-
-    public void triggerIsTriggered(triggerPosisi button)
-    {
-        for(int i = 0; i < allPossibleAction.Length; i++)
+        public enum TriggerPosisi
         {
-            if(allPossibleAction[i].trigger == button && positionRightNow == allPossibleAction[i].prevPosition)
-            {
-                positionRightNow = allPossibleAction[i].nextPosition;
-                
-                if(button == triggerPosisi.TombolS)
-                {
-                    Console.WriteLine("tombol arah bawah ditekan");
-                } else if (button == triggerPosisi.TombolW)
-                {
-                    Console.WriteLine("tombol rah atas ditekan");
-                }
-                break;
+            TombolS, TombolW, TombolX
+        }
+        public class ActionPosisi
+        {
+            public StatePosisi prevPosition;
+            public StatePosisi nextPosition;
+            public TriggerPosisi trigger;
 
+            public ActionPosisi(StatePosisi a, StatePosisi b, TriggerPosisi c)
+            {
+                prevPosition = a;
+                nextPosition = b;
+                trigger = c;
             }
         }
-    }
 
+        public ActionPosisi[] allPossibleAction = {
+        new ActionPosisi(StatePosisi.Jongkok,StatePosisi.Berdiri,TriggerPosisi.TombolW),
+        new ActionPosisi(StatePosisi.Jongkok,StatePosisi.Tengkurap,TriggerPosisi.TombolS),
+        new ActionPosisi(StatePosisi.Berdiri,StatePosisi.Jongkok,TriggerPosisi.TombolS),
+        new ActionPosisi(StatePosisi.Berdiri,StatePosisi.Terbang,TriggerPosisi.TombolW),
+        new ActionPosisi(StatePosisi.Tengkurap,StatePosisi.Jongkok,TriggerPosisi.TombolW),
+        new ActionPosisi(StatePosisi.Terbang,StatePosisi.Berdiri,TriggerPosisi.TombolS),
+        new ActionPosisi(StatePosisi.Terbang,StatePosisi.Jongkok,TriggerPosisi.TombolX)
+    };
+
+        public void Trigger_Is_Triggered(TriggerPosisi button)
+        {
+            for (int i = 0; i < allPossibleAction.Length; i++)
+            {
+                if (allPossibleAction[i].trigger == button && positionRightNow == allPossibleAction[i].prevPosition)
+                {
+                    positionRightNow = allPossibleAction[i].nextPosition;
+
+                    if (button == TriggerPosisi.TombolS)
+                    {
+                        Console.WriteLine("tombol arah bawah ditekan");
+                    }
+                    else if (button == TriggerPosisi.TombolW)
+                    {
+                        Console.WriteLine("tombol rah atas ditekan");
+                    }
+                    break;
+
+                }
+            }
+        }
+
+    }
 }
 
-public class main
+namespace main
 {
-    public static void Main(String[] args)
+    public class Modul3
     {
-        KodeBuah test = new KodeBuah();
-        Console.WriteLine(test.getKodeBuah(KodeBuah.namaBuah.Apel));
+        public static void Main()
+        {
+            soal_1.KodeBuah test = new();
+            Console.WriteLine(test.getKodeBuah(soal_1.KodeBuah.NamaBuah.Apel));
 
-        PosisiKarakterGame bapakKamu = new PosisiKarakterGame();
-        Console.WriteLine("Kondisi player saat ini adalah "+ bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat W");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat S");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat S");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat S");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolS);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat W");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat W");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat W");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolW);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
-        Console.WriteLine("Pencat X");
-        bapakKamu.triggerIsTriggered(PosisiKarakterGame.triggerPosisi.TombolX);
-        Console.WriteLine("Kondisi player saat ini adalah " + bapakKamu.positionRightNow);
+            soal_2.PosisiKarakterGame testPlayer = new();
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat W");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolW);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat S");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolS);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat S");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolS);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat S");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolS);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat W");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolW);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat W");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolW);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat W");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolW);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
+            Console.WriteLine("Pencat X");
+            testPlayer.Trigger_Is_Triggered(soal_2.PosisiKarakterGame.TriggerPosisi.TombolX);
+            Console.WriteLine("Kondisi player saat ini adalah " + testPlayer.positionRightNow);
 
+        }
     }
 }
